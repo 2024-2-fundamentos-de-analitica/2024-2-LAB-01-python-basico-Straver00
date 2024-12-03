@@ -24,3 +24,19 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = line.replace("\t", " ").strip().split()[-1].split(",")
+            for i in fila:
+                data.append(i)
+        codigos = {}
+        for i in range(len(data)):
+            codigo = data[i].split(":")[0]
+            if codigo not in codigos:
+                codigos[codigo] = 1
+            else:
+                codigos[codigo] += 1
+        codigos = dict(sorted(codigos.items()))
+    return codigos

@@ -25,3 +25,20 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = (line.replace("\t", " ").strip().split()[0], line.replace("\t", " ").strip().split()[1])
+            data.append(fila)
+        diccionario = {}
+        for clave, valor in data:
+            if valor not in diccionario:
+                diccionario[valor] = [clave]
+            else:
+                diccionario[valor].append(clave)
+        diccionario = dict(sorted(diccionario.items()))
+        resultado = [(int(clave), diccionario[clave]) for clave in diccionario]
+        return resultado
+    
+print(pregunta_07())

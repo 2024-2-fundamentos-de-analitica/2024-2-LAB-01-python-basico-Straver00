@@ -16,3 +16,19 @@ def pregunta_11():
 
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = line.replace("\t", " ").strip().split()
+            data.append((fila[1], fila[3].split(",")))
+        diccionario = {}
+        for numero, letras in data:
+            numero = int(numero)
+            for letra in letras:
+                if letra not in diccionario:
+                    diccionario[letra] = numero
+                else:
+                    diccionario[letra] += numero
+        diccionario = dict(sorted(diccionario.items()))
+        return diccionario

@@ -20,3 +20,17 @@ def pregunta_10():
 
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = line.replace("\t", " ").strip().split()
+            data.append([fila[0], fila[-2], fila[-1]]) 
+        resultado = []  
+        for dato in data:
+            valor1 = len(dato[1].split(","))
+            valor2 = len(dato[2].split(","))
+            tupla = (dato[0], valor1, valor2)
+            resultado.append(tupla)
+        return resultado 
+print(pregunta_10())

@@ -26,3 +26,18 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = line.replace("\t", ",").strip().split(",")
+            data.append(fila)
+        meses = []
+        for i in range(0, len(data)):
+            meses.append(data[i][2][5:7])
+        meses_unicos = list(set(meses))
+        cantidad = []
+        for i in range(0, len(meses_unicos)):
+            cantidad.append((meses_unicos[i], meses.count(meses_unicos[i])))
+        cantidad = sorted(cantidad)
+        return cantidad

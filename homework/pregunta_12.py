@@ -15,3 +15,20 @@ def pregunta_12():
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = line.replace("\t", " ").strip().split()
+            valores = fila[-1].split(",")
+            valores = [int(a.split(":")[1]) for a in valores]
+            data.append((fila[0], sum(valores)))
+        diccionario = {}
+        for letra, numero in data:
+            if letra not in diccionario:
+                diccionario[letra] = numero
+            else:
+                diccionario[letra] +=numero
+        resultado = dict(sorted(diccionario.items()))
+        return resultado
+print(pregunta_12())

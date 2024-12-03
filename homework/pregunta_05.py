@@ -15,3 +15,29 @@ def pregunta_05():
     [('A', 9, 2), ('B', 9, 1), ('C', 9, 0), ('D', 8, 3), ('E', 9, 1)]
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = line.replace("\t", ",").strip().split(",")
+            data.append(fila)
+        letras = []
+        for i in range(len(data)):
+            letras.append((data[i][0], data[i][1]))
+        letras_unicas = list(set(letras))
+        diccionario = {}
+        for letra, valor in letras:
+            valor = int(valor)
+            if letra not in diccionario:
+                diccionario[letra] = {"min":valor, "max":valor}
+            else:
+                if valor < diccionario[letra]["min"]:
+                    diccionario[letra]["min"] = valor
+                if valor > diccionario[letra]["max"]:
+                    diccionario[letra]["max"] = valor
+        diccionario = dict(sorted(diccionario.items()))
+        resultado = [(clave, diccionario[clave]["max"], diccionario[clave]["min"]) for clave in diccionario]
+        return resultado
+        
+
+print(pregunta_05())

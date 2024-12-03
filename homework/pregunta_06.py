@@ -26,3 +26,26 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+    with open("files/input/data.csv") as file:
+        lines = file.readlines()
+        data= []
+        for line in lines:
+            fila = line.replace("\t", " ").strip().split()[-1].split(",")
+            for i in fila:
+                data.append(i)
+        codigos = []
+        for i in range(len(data)):
+            codigo = data[i].split(":")
+            codigos.append((codigo[0], int(codigo[1])))
+        diccionario = {}
+        for codigo, valor in codigos:
+            if codigo not in diccionario:
+                diccionario[codigo] = {"min": valor, "max":valor}
+            else:
+                if valor < diccionario[codigo]["min"]:
+                    diccionario[codigo]["min"] = valor
+                if valor > diccionario[codigo]["max"]:
+                    diccionario[codigo]["max"] = valor
+        diccionario = dict(sorted(diccionario.items()))
+        resultado = [(clave, diccionario[clave]["min"], diccionario[clave]["max"]) for clave in diccionario]
+    return resultado
